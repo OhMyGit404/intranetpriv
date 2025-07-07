@@ -123,5 +123,29 @@
       <div class="text-sm">&copy; 2024 Intranet Training Institute. All rights reserved.</div>
     </div>
   </footer>
+    <script>
+        // Sample staff data
+        const staffData = [
+        { name: "John Doe", position: "Director", image: "assets/img/staff1.jpg" },
+        { name: "Jane Smith", position: "Instructor", image: "assets/img/staff2.jpg" },
+        { name: "Alice Johnson", position: "Administrator", image: "assets/img/staff3.jpg" }
+        ];
+
+        // Function to render staff carousel
+        function renderStaffCarousel() {
+        const staffContent = document.getElementById('staff-content');
+        staffContent.innerHTML = staffData.map(staff => `
+            <div class="text-center">
+            <img src="${staff.image}" alt="${staff.name}" class="h-32 w-32 rounded-full mx-auto mb-4 object-cover shadow-lg border-2 border-[#8e24aa]/20">
+            <h3 class="text-lg font-semibold text-[#1A237E]">${staff.name}</h3>
+            <p class="text-sm text-[#4a148c]">${staff.position}</p>
+            </div>
+        `).join('');
+        }
+
+        // Initialize the carousel
+        renderStaffCarousel();
+    </script>
+   <script type="module" src="assets/js/main.js" defer></script>
 </body>
 </html>
