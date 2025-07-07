@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About | Intranet Training Institute</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
+  <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-white text-gray-900">
+  <!-- Navbar -->
+  <!-- ... same as index.html ... -->
+  <header id="navbar" class="sticky top-0 z-50 bg-white shadow">
+    <!-- ... navbar code ... -->
+  </header>
+
+  <main>
+    <!-- Mission & Vision -->
+    <section class="container mx-auto py-12 px-4">
+      <h1 class="text-3xl font-bold mb-4">Our Mission & Vision</h1>
+      <p class="mb-6">At Intranet Training Institute, our mission is to empower students with practical skills and knowledge for a rapidly changing world. We envision a future where every learner is equipped to succeed and lead.</p>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div>
+          <h2 class="text-xl font-semibold mb-2">Mission</h2>
+          <p>To deliver high-quality, accessible education that bridges the gap between theory and practice.</p>
+        </div>
+        <div>
+          <h2 class="text-xl font-semibold mb-2">Vision</h2>
+          <p>To be a leader in innovative training, fostering lifelong learning and professional growth.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- History -->
+    <section class="bg-gray-50 py-12 px-4">
+      <div class="container mx-auto">
+        <h2 class="text-2xl font-bold mb-4">Our History</h2>
+        <p class="mb-6">Founded in 2005, Intranet Training Institute has grown from a small local academy to a nationally recognized institution, serving over 1,200 students annually and offering 25+ accredited courses.</p>
+      </div>
+    </section>
+
+    <!-- Accreditation Badges -->
+    <section class="container mx-auto py-12 px-4">
+      <h2 class="text-2xl font-bold mb-4">Accreditation</h2>
+      <div class="flex flex-wrap gap-6 items-center">
+        <img src="https://placehold.co/80x80?text=ISO" alt="ISO Accreditation Badge" class="h-20 w-20 object-contain" loading="lazy"/>
+        <img src="https://placehold.co/80x80?text=Edu" alt="Education Board Accreditation Badge" class="h-20 w-20 object-contain" loading="lazy"/>
+        <img src="https://placehold.co/80x80?text=QA" alt="Quality Assurance Accreditation Badge" class="h-20 w-20 object-contain" loading="lazy"/>
+      </div>
+    </section>
+
+    <!-- Staff Carousel -->
+    <section class="bg-indigo-50 py-12 px-4">
+      <div class="container mx-auto">
+        <h2 class="text-2xl font-bold mb-8 text-center">Meet Our Staff</h2>
+        <div id="staff-carousel" class="relative max-w-3xl mx-auto">
+          <button id="prev-staff" aria-label="Previous staff" class="absolute left-0 top-1/2 -translate-y-1/2 bg-white rounded-full shadow p-2 hover:bg-indigo-100 focus:outline-none">
+            <svg class="h-6 w-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+          </button>
+          <button id="next-staff" aria-label="Next staff" class="absolute right-0 top-1/2 -translate-y-1/2 bg-white rounded-full shadow p-2 hover:bg-indigo-100 focus:outline-none">
+            <svg class="h-6 w-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+          <div id="staff-content" class="px-8"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <!-- ... same as index.html ... -->
+  <footer class="bg-gray-900 text-gray-200 py-8 mt-12">
+    <!-- ... footer code ... -->
+  </footer>
+  <script type="module" src="assets/js/main.js" defer></script>
+</body>
+</html>

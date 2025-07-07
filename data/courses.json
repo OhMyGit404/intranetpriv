@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Full Stack Web Development",
+    "description": "Learn HTML, CSS, JavaScript, and backend fundamentals to build modern web apps.",
+    "duration": "6 months",
+    "cost": 1200,
+    "category": "Technology"
+  },
+  {
+    "id": 2,
+    "name": "Digital Marketing Essentials",
+    "description": "Master SEO, SEM, social media, and analytics for digital business growth.",
+    "duration": "3 months",
+    "cost": 800,
+    "category": "Business"
+  },
+  {
+    "id": 3,
+    "name": "Project Management Professional",
+    "description": "Gain practical skills in project planning, execution, and leadership.",
+    "duration": "4 months",
+    "cost": 950,
+    "category": "Management"
+  }
+]
