@@ -5,20 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gallery | Intranet Training Institute</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
-  <style>body { font-family: 'Inter', sans-serif; }</style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-white text-gray-900">
-  <!-- Navbar -->
-  <!-- ... same as index.html ... -->
-  <header id="navbar" class="sticky top-0 z-50 bg-white shadow">
-    <!-- ... navbar code ... -->
+<body class="bg-[#FFF8E1] text-[#1A237E]">
+  <!-- Navbar (copied from index.html) -->
+  <header id="navbar" class="sticky top-0 z-50 bg-[#FFF8E1]/90 backdrop-blur shadow-lg transition">
+    <nav class="container mx-auto flex items-center justify-between py-4 px-4">
+      <a href="index.html" class="flex items-center space-x-3">
+        <img src="assets/img/logo.png" alt="Intranet Training Institute Logo" class="h-12 w-12 rounded-full object-cover shadow border-2 border-[#8e24aa] bg-white"/>
+        <span class="font-extrabold text-2xl tracking-tight text-[#1A237E]">Intranet Training Institute</span>
+      </a>
+      <div class="hidden md:flex items-center space-x-8 font-medium">
+        <a href="index.html#home" class="hover:text-[#8e24aa] transition">Home</a>
+        <a href="courses.html" class="hover:text-[#8e24aa] transition">Courses</a>
+        <a href="index.html#testimonials" class="hover:text-[#8e24aa] transition">Testimonials</a>
+        <a href="gallery.html" class="hover:text-[#8e24aa] transition font-bold underline">Gallery</a>
+        <a href="blog.html" class="hover:text-[#8e24aa] transition">Blog</a>
+        <a href="contact.html" class="hover:text-[#8e24aa] transition">Contact</a>
+        <a href="login.html" class="ml-4 bg-[#8e24aa] text-white px-4 py-2 rounded shadow hover:bg-[#6d1b7b] transition">Student Portal</a>
+      </div>
+      <button id="mobile-menu-btn" class="md:hidden p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#8e24aa]" aria-label="Open menu">
+        <i class="fa fa-bars text-2xl text-[#1A237E]"></i>
+      </button>
+    </nav>
   </header>
 
+  <!-- Hero/Header Section -->
+  <section class="relative bg-gradient-to-br from-[#8e24aa]/80 via-[#1A237E]/90 to-[#FFF8E1] text-[#1A237E] py-20 px-4 text-center overflow-hidden mb-8">
+    <div class="absolute inset-0 flex justify-center items-center opacity-10 pointer-events-none select-none">
+      <img src="assets/img/logo.png" alt="ITI Logo Watermark" class="w-80 h-80 object-contain mx-auto"/>
+    </div>
+    <div class="relative z-10 container mx-auto">
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-4">Gallery</h1>
+      <p class="mb-4 text-lg md:text-2xl text-[#4a148c]">A glimpse into our vibrant campus life.</p>
+    </div>
+  </section>
+
+  <!-- Gallery Grid -->
   <main>
-    <section class="container mx-auto py-12 px-4">
-      <h1 class="text-3xl font-bold mb-8">Gallery</h1>
-      <div id="gallery-grid" class="columns-1 sm:columns-2 md:columns-3 gap-4 space-y-4"></div>
+    <section class="container mx-auto py-8 px-4">
+      <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
     </section>
     <!-- Lightbox Modal -->
     <div id="lightbox-modal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden" aria-modal="true" role="dialog">
@@ -27,12 +53,23 @@
     </div>
   </main>
 
-  <!-- Footer -->
-  <!-- ... same as index.html ... -->
-  <footer class="bg-gray-900 text-gray-200 py-8 mt-12">
-    <!-- ... footer code ... -->
+  <!-- Footer (copied from index.html) -->
+  <footer class="bg-[#1A237E] text-white py-8 mt-8">
+    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4 px-4">
+      <div class="flex items-center gap-3">
+        <img src="assets/img/logo.png" alt="ITI Logo" class="h-10 w-10 rounded-full object-cover border-2 border-[#8e24aa] bg-white">
+        <span class="font-bold text-lg">Intranet Training Institute</span>
+      </div>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-[#8e24aa] transition"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="hover:text-[#8e24aa] transition"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="hover:text-[#8e24aa] transition"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="hover:text-[#8e24aa] transition"><i class="fab fa-instagram"></i></a>
+      </div>
+      <div class="text-sm">&copy; 2024 Intranet Training Institute. All rights reserved.</div>
+    </div>
   </footer>
-  <script type="module" src="assets/js/main.js" defer></script>
+
   <script type="module" src="assets/js/gallery.js" defer></script>
 </body>
 </html>

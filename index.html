@@ -1,61 +1,209 @@
-<header id="navbar" class="sticky top-0 z-50 bg-white/80 backdrop-blur shadow-lg transition">
-  <nav class="container mx-auto flex items-center justify-between py-4 px-4">
-    <a href="index.html" class="flex items-center space-x-2">
-      <img src="assets/img/hero.jpg" alt="Intranet Training Institute Logo" class="h-10 w-10 rounded-full object-cover shadow"/>
-      <span class="font-bold text-xl tracking-tight">Intranet Training Institute</span>
-    </a>
-    <div class="hidden md:flex items-center space-x-8 font-medium">
-      <a href="index.html" class="hover:text-indigo-600 transition">Home</a>
-      <!-- ... other links ... -->
-      <a href="login.html" class="ml-4 bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700 transition">Student Portal</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intranet Training Institute</title>
+  <!-- Tailwind CSS
+  <link rel="stylesheet" href="assets/css/tailwind.css">
+  -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-[#FFF8E1] text-[#1A237E]">
+  <!-- Navbar -->
+  <header id="navbar" class="sticky top-0 z-50 bg-[#FFF8E1]/90 backdrop-blur shadow-lg transition">
+    <nav class="container mx-auto flex items-center justify-between py-4 px-4">
+      <a href="index.html" class="flex items-center space-x-3">
+        <img src="assets/img/logo.png" alt="Intranet Training Institute Logo" class="h-12 w-12 rounded-full object-cover shadow border-2 border-[#8e24aa] bg-white"/>
+        <span class="font-extrabold text-2xl tracking-tight text-[#1A237E]">Intranet Training Institute</span>
+      </a>
+      <div class="hidden md:flex items-center space-x-8 font-medium">
+        <a href="#home" class="hover:text-[#8e24aa] transition">Home</a>
+        <a href="courses.html" class="hover:text-[#8e24aa] transition">Courses</a>
+        <a href="#testimonials" class="hover:text-[#8e24aa] transition">Testimonials</a>
+        <a href="gallery.html" class="hover:text-[#8e24aa] transition">Gallery</a>
+        <a href="blog.html" class="hover:text-[#8e24aa] transition">Blog</a>
+        <a href="contact.html" class="hover:text-[#8e24aa] transition">Contact</a>
+        <a href="login.html" class="ml-4 bg-[#8e24aa] text-white px-4 py-2 rounded shadow hover:bg-[#6d1b7b] transition">Student Portal</a>
+      </div>
+      <button id="mobile-menu-btn" class="md:hidden p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#8e24aa]" aria-label="Open menu">
+        <i class="fa fa-bars text-2xl text-[#1A237E]"></i>
+      </button>
+    </nav>
+    <!-- Mobile menu placeholder -->
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="relative bg-gradient-to-br from-[#8e24aa]/80 via-[#1A237E]/90 to-[#FFF8E1] text-[#1A237E] py-24 px-4 text-center overflow-hidden">
+    <div class="absolute inset-0 flex justify-center items-center opacity-10 pointer-events-none select-none">
+      <img src="assets/img/logo.png" alt="ITI Logo Watermark" class="w-96 h-96 object-contain mx-auto"/>
     </div>
-    <button id="mobile-menu-btn" class="md:hidden p-2 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500" aria-label="Open menu">
-      <!-- ... icon ... -->
-    </button>
-  </nav>
-  <!-- ... mobile menu ... -->
-</header>
-<section class="relative bg-indigo-600 text-white py-24 px-4 text-center overflow-hidden">
-  <div class="absolute inset-0">
-    <img src="assets/img/hero.jpg" class="w-full h-full object-cover opacity-30" alt="" />
-    <div class="absolute inset-0 bg-gradient-to-br from-indigo-700/80 to-indigo-400/60"></div>
-  </div>
-  <div class="relative z-10 container mx-auto">
-    <h1 class="text-5xl md:text-6xl font-extrabold mb-4 animate-fade-in-down">Empowering Learners for <span class="text-yellow-300">Tomorrow</span></h1>
-    <p class="mb-8 text-lg md:text-2xl">Accredited. Innovative. Student-Focused.</p>
-    <div class="flex flex-col md:flex-row justify-center gap-4">
-      <a href="contact.html" class="bg-white text-indigo-700 font-semibold px-8 py-3 rounded shadow hover:bg-gray-100 transition">Apply Now</a>
-      <a href="courses.html" class="bg-indigo-500 border border-white font-semibold px-8 py-3 rounded hover:bg-indigo-700 transition">View Courses</a>
+    <div class="relative z-10 container mx-auto">
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-4 animate-fade-in-down">
+        Empowering Learners for <span class="text-[#8e24aa]">Tomorrow</span>
+      </h1>
+      <p class="mb-8 text-lg md:text-2xl text-[#4a148c]">Accredited. Innovative. Student-Focused.</p>
+      <div class="flex flex-col md:flex-row justify-center gap-4">
+        <a href="contact.html" class="bg-[#8e24aa] text-white font-semibold px-8 py-3 rounded shadow hover:bg-[#6d1b7b] transition flex items-center justify-center gap-2"><i class="fa fa-paper-plane"></i> Apply Now</a>
+        <a href="#courses" class="bg-[#1A237E] border border-[#8e24aa] font-semibold px-8 py-3 rounded text-white hover:bg-[#283593] transition flex items-center justify-center gap-2"><i class="fa fa-book"></i> View Courses</a>
+      </div>
     </div>
-    <div class="mt-12 flex justify-center">
-      <span class="animate-bounce text-3xl text-white/80"><i class="fa fa-chevron-down"></i></span>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="container mx-auto py-12 px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+    <div class="bg-white rounded-xl shadow-lg p-6 hover:scale-105 transition border-2 border-[#8e24aa]/20">
+      <div class="flex justify-center mb-2">
+        <i class="fa fa-users text-3xl text-[#8e24aa]"></i>
+      </div>
+      <h2 class="text-3xl font-bold counter" data-target="1200">0</h2>
+      <p class="text-[#4a148c]">Students Enrolled</p>
     </div>
-  </div>
-</section>
-<section class="container mx-auto py-12 px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-  <div class="bg-white rounded-xl shadow-lg p-6 hover:scale-105 transition">
-    <div class="flex justify-center mb-2">
-      <svg class="h-8 w-8 text-indigo-600" ...></svg>
+    <div class="bg-white rounded-xl shadow-lg p-6 hover:scale-105 transition border-2 border-[#8e24aa]/20">
+      <div class="flex justify-center mb-2">
+        <i class="fa fa-chalkboard-teacher text-3xl text-[#8e24aa]"></i>
+      </div>
+      <h2 class="text-3xl font-bold counter" data-target="75">0</h2>
+      <p class="text-[#4a148c]">Expert Instructors</p>
     </div>
-    <h2 class="text-3xl font-bold counter" data-target="1200">0</h2>
-    <p class="text-gray-600">Students Enrolled</p>
-  </div>
-  <!-- ... other stats ... -->
-</section>
-<script>
-  // Animated counter JS
-  document.querySelectorAll('.counter').forEach(counter => {
-    const updateCount = () => {
-      const target = +counter.getAttribute('data-target');
-      const count = +counter.innerText;
-      const increment = target / 100;
-      if(count < target) {
-        counter.innerText = Math.ceil(count + increment);
-        setTimeout(updateCount, 20);
-      } else {
-        counter.innerText = target.toLocaleString();
-      }
-    };
-    updateCount();
-  });
-</script>
+    <div class="bg-white rounded-xl shadow-lg p-6 hover:scale-105 transition border-2 border-[#8e24aa]/20">
+      <div class="flex justify-center mb-2">
+        <i class="fa fa-book-open text-3xl text-[#8e24aa]"></i>
+      </div>
+      <h2 class="text-3xl font-bold counter" data-target="30">0</h2>
+      <p class="text-[#4a148c]">Courses Offered</p>
+    </div>
+  </section>
+
+  <!-- Featured Courses Section -->
+  <section id="courses" class="bg-[#f3e5f5] py-16 px-4">
+    <div class="container mx-auto text-center mb-10">
+      <h2 class="text-4xl font-extrabold mb-4 text-[#1A237E]">Featured Courses</h2>
+      <p class="text-[#4a148c] mb-8">Explore our top programs designed for your success.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl shadow-lg p-6 border-2 border-[#8e24aa]/20">
+          <img src="assets/img/hero.jpg" alt="Course 1" class="w-full h-40 object-cover rounded mb-4">
+          <h3 class="text-2xl font-bold mb-2 text-[#1A237E]">Web Development</h3>
+          <p class="text-[#4a148c] mb-4">Learn to build modern, responsive websites and web apps.</p>
+          <a href="#" class="bg-[#8e24aa] text-white px-4 py-2 rounded hover:bg-[#6d1b7b] transition">Learn More</a>
+        </div>
+        <div class="bg-white rounded-xl shadow-lg p-6 border-2 border-[#8e24aa]/20">
+          <img src="assets/img/hero.jpg" alt="Course 2" class="w-full h-40 object-cover rounded mb-4">
+          <h3 class="text-2xl font-bold mb-2 text-[#1A237E]">Data Science</h3>
+          <p class="text-[#4a148c] mb-4">Master data analysis, visualization, and machine learning.</p>
+          <a href="#" class="bg-[#8e24aa] text-white px-4 py-2 rounded hover:bg-[#6d1b7b] transition">Learn More</a>
+        </div>
+        <div class="bg-white rounded-xl shadow-lg p-6 border-2 border-[#8e24aa]/20">
+          <img src="assets/img/hero.jpg" alt="Course 3" class="w-full h-40 object-cover rounded mb-4">
+          <h3 class="text-2xl font-bold mb-2 text-[#1A237E]">Cybersecurity</h3>
+          <p class="text-[#4a148c] mb-4">Protect systems and data with hands-on security training.</p>
+          <a href="#" class="bg-[#8e24aa] text-white px-4 py-2 rounded hover:bg-[#6d1b7b] transition">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="container mx-auto py-16 px-4">
+    <h2 class="text-4xl font-extrabold mb-8 text-center text-[#1A237E]">What Our Students Say</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="bg-white rounded-xl shadow-lg p-6 border-2 border-[#8e24aa]/20">
+        <p class="text-[#4a148c] mb-4">“The instructors are amazing and the courses are very practical!”</p>
+        <div class="flex items-center gap-3">
+          <img src="assets/img/hero.jpg" alt="Student 1" class="h-10 w-10 rounded-full object-cover border-2 border-[#8e24aa]">
+          <span class="font-bold text-[#1A237E]">Jane Doe</span>
+        </div>
+      </div>
+      <div class="bg-white rounded-xl shadow-lg p-6 border-2 border-[#8e24aa]/20">
+        <p class="text-[#4a148c] mb-4">“I landed my dream job thanks to ITI's training!”</p>
+        <div class="flex items-center gap-3">
+          <img src="assets/img/hero.jpg" alt="Student 2" class="h-10 w-10 rounded-full object-cover border-2 border-[#8e24aa]">
+          <span class="font-bold text-[#1A237E]">John Smith</span>
+        </div>
+      </div>
+      <div class="bg-white rounded-xl shadow-lg p-6 border-2 border-[#8e24aa]/20">
+        <p class="text-[#4a148c] mb-4">“A wonderful learning environment with lots of support.”</p>
+        <div class="flex items-center gap-3">
+          <img src="assets/img/hero.jpg" alt="Student 3" class="h-10 w-10 rounded-full object-cover border-2 border-[#8e24aa]">
+          <span class="font-bold text-[#1A237E]">Mary Lee</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Preview Section -->
+  <section id="gallery" class="bg-[#FFF8E1] py-16 px-4">
+    <div class="container mx-auto text-center mb-10">
+      <h2 class="text-4xl font-extrabold mb-4 text-[#1A237E]">Gallery</h2>
+      <p class="text-[#4a148c] mb-8">A glimpse into our vibrant campus life.</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <img src="assets/img/hero.jpg" alt="Gallery 1" class="rounded-xl shadow border-2 border-[#8e24aa]/20 object-cover h-32 w-full">
+        <img src="assets/img/hero.jpg" alt="Gallery 2" class="rounded-xl shadow border-2 border-[#8e24aa]/20 object-cover h-32 w-full">
+        <img src="assets/img/hero.jpg" alt="Gallery 3" class="rounded-xl shadow border-2 border-[#8e24aa]/20 object-cover h-32 w-full">
+        <img src="assets/img/hero.jpg" alt="Gallery 4" class="rounded-xl shadow border-2 border-[#8e24aa]/20 object-cover h-32 w-full">
+      </div>
+      <a href="gallery.html" class="inline-block bg-[#8e24aa] text-white px-6 py-2 rounded hover:bg-[#6d1b7b] transition">View All</a>
+    </div>
+  </section>
+
+  <!-- Newsletter Signup Section -->
+  <section class="container mx-auto py-16 px-4">
+    <div class="bg-[#f3e5f5] rounded-xl shadow-lg p-8 max-w-xl mx-auto text-center">
+      <h2 class="text-3xl font-extrabold mb-4 text-[#1A237E]">Stay Updated</h2>
+      <p class="text-[#4a148c] mb-6">Subscribe to our newsletter for the latest news and updates.</p>
+      <form class="flex flex-col md:flex-row gap-4 justify-center">
+        <input type="email" placeholder="Enter your email" class="px-4 py-2 rounded border-2 border-[#8e24aa]/40 focus:outline-none focus:ring-2 focus:ring-[#8e24aa] flex-1" required>
+        <button type="submit" class="bg-[#8e24aa] text-white px-6 py-2 rounded hover:bg-[#6d1b7b] transition">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Partners/Accreditations Section -->
+  <section class="bg-[#FFF8E1] py-12 px-4">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl font-extrabold mb-6 text-[#1A237E]">Our Partners & Accreditations</h2>
+      <div class="flex flex-wrap justify-center items-center gap-8">
+        <img src="assets/img/hero.jpg" alt="Partner 1" class="h-16 object-contain grayscale hover:grayscale-0 transition">
+        <img src="assets/img/hero.jpg" alt="Partner 2" class="h-16 object-contain grayscale hover:grayscale-0 transition">
+        <img src="assets/img/hero.jpg" alt="Partner 3" class="h-16 object-contain grayscale hover:grayscale-0 transition">
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#1A237E] text-white py-8 mt-8">
+    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4 px-4">
+      <div class="flex items-center gap-3">
+        <img src="assets/img/logo.png" alt="ITI Logo" class="h-10 w-10 rounded-full object-cover border-2 border-[#8e24aa] bg-white">
+        <span class="font-bold text-lg">Intranet Training Institute</span>
+      </div>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-[#8e24aa] transition"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="hover:text-[#8e24aa] transition"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="hover:text-[#8e24aa] transition"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="hover:text-[#8e24aa] transition"><i class="fab fa-instagram"></i></a>
+      </div>
+      <div class="text-sm">&copy; 2024 Intranet Training Institute. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Animated Counter JS -->
+  <script>
+    document.querySelectorAll('.counter').forEach(counter => {
+      const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+        const increment = target / 100;
+        if(count < target) {
+          counter.innerText = Math.ceil(count + increment);
+          setTimeout(updateCount, 20);
+        } else {
+          counter.innerText = target.toLocaleString();
+        }
+      };
+      updateCount();
+    });
+  </script>
+</body>
+</html>

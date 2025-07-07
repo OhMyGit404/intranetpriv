@@ -9,7 +9,7 @@ const lightboxImg = document.getElementById('lightbox-img');
 const closeLightbox = document.getElementById('close-lightbox');
 
 async function renderGallery() {
-  const images = await fetchJSON('../../data/gallery.json');
+  const images = await fetchJSON('data/gallery.json');
   if (!galleryGrid) return;
   galleryGrid.innerHTML = images.map(img => `
     <img src="${img.src}" alt="${img.alt}" class="w-full mb-4 rounded shadow cursor-pointer hover:opacity-80 transition" loading="lazy" tabindex="0" data-src="${img.src}" />
