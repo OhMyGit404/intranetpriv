@@ -1,7 +1,7 @@
 // assets/js/gallery.js
-// Renders a responsive masonry gallery and lightbox modal
+// Renders a responsive masonry gallery and lightbox modal with admin sync
 
-import { fetchJSON } from './utils.js';
+import { getSyncedData } from './utils.js';
 
 const galleryGrid = document.getElementById('gallery-grid');
 const lightboxModal = document.getElementById('lightbox-modal');
@@ -9,7 +9,7 @@ const lightboxImg = document.getElementById('lightbox-img');
 const closeLightbox = document.getElementById('close-lightbox');
 
 async function renderGallery() {
-  const images = await fetchJSON('data/gallery.json');
+  const images = await getSyncedData('gallery', 'data/gallery.json');
   if (!galleryGrid) return;
   galleryGrid.innerHTML = images.map(img => `
     <img src="${img.src}" alt="${img.alt}" class="w-full mb-4 rounded shadow cursor-pointer hover:opacity-80 transition" loading="lazy" tabindex="0" data-src="${img.src}" />
@@ -45,5 +45,12 @@ if (closeLightbox) {
     }
   });
 }
+
+// Listen for admin data updates
+window.addEventListener('dataUpdated', (event) => {
+  if (event.detail.key === 'gallery') {
+    renderGallery();
+  }
+});
 
 renderGallery();

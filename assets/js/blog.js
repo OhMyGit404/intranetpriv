@@ -1,7 +1,7 @@
 // assets/js/blog.js
-// Handles blog list, pagination, and single post rendering
+// Handles blog list, pagination, and single post rendering with admin sync
 
-import { fetchJSON } from './utils.js';
+import { getSyncedData, formatDate } from './utils.js';
 
 const blogList = document.getElementById('blog-list');
 const pagination = document.getElementById('pagination');
@@ -10,7 +10,7 @@ const postContent = document.getElementById('post-content');
 const POSTS_PER_PAGE = 2;
 
 async function renderBlogList(page = 1) {
-  const posts = await fetchJSON('../../data/posts.json');
+  const posts = await getSyncedData('posts', 'data/posts.json');
   if (!blogList) return;
   const start = (page - 1) * POSTS_PER_PAGE;
   const end = start + POSTS_PER_PAGE;
@@ -21,7 +21,10 @@ async function renderBlogList(page = 1) {
       <img src="${post.thumbnail}" alt="Thumbnail for ${post.title}" class="h-40 w-full object-cover rounded mb-4" loading="lazy"/>
       <h2 class="text-xl font-bold mb-2"><a href="post.html?slug=${post.slug}" class="hover:text-indigo-600">${post.title}</a></h2>
       <p class="mb-2 text-gray-700">${post.excerpt}</p>
-      <a href="post.html?slug=${post.slug}" class="mt-auto text-indigo-600 hover:underline">Read More</a>
+      <div class="flex items-center justify-between mt-auto">
+        <span class="text-sm text-gray-500">${formatDate(post.date)}</span>
+        <a href="post.html?slug=${post.slug}" class="text-indigo-600 hover:underline">Read More</a>
+      </div>
     </div>
   `).join('');
 
@@ -43,7 +46,7 @@ async function renderSinglePost() {
   const urlParams = new URLSearchParams(window.location.search);
   const slug = urlParams.get('slug');
   if (!slug || !postContent) return;
-  const posts = await fetchJSON('../../data/posts.json');
+  const posts = await getSyncedData('posts', 'data/posts.json');
   const post = posts.find(p => p.slug === slug);
   if (!post) {
     postContent.innerHTML = '<p class="text-red-600">Post not found.</p>';
@@ -53,9 +56,23 @@ async function renderSinglePost() {
     <img src="${post.thumbnail}" alt="Thumbnail for ${post.title}" class="h-56 w-full object-cover rounded mb-6" loading="lazy"/>
     <h1 class="text-3xl font-bold mb-4">${post.title}</h1>
     <div class="prose max-w-none mb-4">${post.body}</div>
-    <p class="text-gray-500 text-sm">Published: ${post.date}</p>
+    <p class="text-gray-500 text-sm">Published: ${formatDate(post.date)}</p>
   `;
 }
+
+// Listen for admin data updates
+window.addEventListener('dataUpdated', (event) => {
+  if (event.detail.key === 'posts') {
+    // Refresh the current view
+    if (blogList) {
+      const currentPage = 1; // Reset to first page when data changes
+      renderBlogList(currentPage);
+    }
+    if (postContent) {
+      renderSinglePost();
+    }
+  }
+});
 
 if (blogList) renderBlogList();
 if (postContent) renderSinglePost();

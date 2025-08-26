@@ -3,7 +3,7 @@
     "id": 1,
     "title": "5 Tips for Effective Online Learning",
     "slug": "5-tips-for-effective-online-learning",
-    "thumbnail": "assets/img/hero.jpg",
+    "thumbnail": "assets/img/blog/blog-1.jpg",
     "excerpt": "Discover how to maximize your online learning experience with these proven strategies.",
     "body": "<p>Online learning offers flexibility and convenience, but it also requires discipline. Here are five tips to help you succeed:</p><ol><li>Set a regular study schedule.</li><li>Eliminate distractions.</li><li>Engage with your peers and instructors.</li><li>Take regular breaks.</li><li>Review and reflect on your progress.</li></ol>",
     "date": "2024-06-01"
@@ -12,7 +12,7 @@
     "id": 2,
     "title": "Why Accreditation Matters",
     "slug": "why-accreditation-matters",
-    "thumbnail": "assets/img/testimonial1.jpg",
+    "thumbnail": "assets/img/blog/blog-2.jpg",
     "excerpt": "Learn why choosing an accredited institution is crucial for your career.",
     "body": "<p>Accreditation ensures that an institution meets high standards of quality and integrity. It can impact your job prospects and eligibility for further education.</p>",
     "date": "2024-05-20"
@@ -21,7 +21,7 @@
     "id": 3,
     "title": "Meet Our Instructors",
     "slug": "meet-our-instructors",
-    "thumbnail": "assets/img/staff1.jpg",
+    "thumbnail": "assets/img/blog/blog-3.jpg",
     "excerpt": "Get to know the experienced professionals guiding your learning journey.",
     "body": "<p>Our instructors bring years of industry experience and a passion for teaching. They are dedicated to helping you achieve your goals.</p>",
     "date": "2024-05-10"

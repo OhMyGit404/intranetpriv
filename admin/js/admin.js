@@ -1,6 +1,8 @@
 // admin/js/admin.js
 // Admin portal logic: login, dashboard tabs, CRUD for posts/courses/gallery, localStorage persistence, toasts
 
+import { saveData } from '../../assets/js/utils.js';
+
 const DEMO_EMAIL = 'admin@intranet.edu';
 const DEMO_PASSWORD = 'password123';
 
@@ -36,6 +38,88 @@ if (logoutBtn) {
   });
 }
 
+// --- Import Data ---
+const importDataBtn = document.getElementById('import-data');
+if (importDataBtn) {
+  importDataBtn.addEventListener('click', () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const data = JSON.parse(event.target.result);
+            if (data.posts) {
+              saveData('posts', data.posts);
+              showToast('Posts imported successfully');
+            }
+            if (data.courses) {
+              saveData('courses', data.courses);
+              showToast('Courses imported successfully');
+            }
+            if (data.gallery) {
+              saveData('gallery', data.gallery);
+              showToast('Gallery imported successfully');
+            }
+            // Refresh all views
+            renderPosts();
+            renderCourses();
+            renderGallery();
+          } catch (error) {
+            showToast('Invalid data format', 'error');
+          }
+        };
+        reader.readAsText(file);
+      }
+    };
+    input.click();
+  });
+}
+
+// --- Export Data ---
+const exportDataBtn = document.getElementById('export-data');
+if (exportDataBtn) {
+  exportDataBtn.addEventListener('click', () => {
+    const data = {
+      posts: getData('posts', []),
+      courses: getData('courses', []),
+      gallery: getData('gallery', []),
+      exportDate: new Date().toISOString(),
+      version: '1.0'
+    };
+    
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `intranet-data-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    showToast('Data exported successfully');
+  });
+}
+
+// --- Reset Data ---
+const resetDataBtn = document.getElementById('reset-data');
+if (resetDataBtn) {
+  resetDataBtn.addEventListener('click', () => {
+    if (confirm('Are you sure you want to reset all data to default? This will remove all custom changes.')) {
+      localStorage.removeItem('posts');
+      localStorage.removeItem('courses');
+      localStorage.removeItem('gallery');
+      showToast('Data reset to default');
+      // Re-initialize with default data
+      initData();
+    }
+  });
+}
+
 // --- Tabs ---
 const tabBtns = document.querySelectorAll('.tab-btn');
 const tabSections = document.querySelectorAll('.tab-section');
@@ -67,12 +151,27 @@ function showToast(msg, type = 'success') {
   setTimeout(() => toast.classList.add('hidden'), 2500);
 }
 
+// --- Sync Status ---
+function updateSyncStatus(message, type = 'success') {
+  const syncStatus = document.getElementById('sync-status');
+  if (!syncStatus) return;
+  
+  const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+  const color = type === 'success' ? 'text-green-300' : 'text-yellow-300';
+  
+  syncStatus.innerHTML = `<i class="fas ${icon} mr-2"></i>${message}`;
+  syncStatus.className = `text-sm ${color}`;
+  
+  // Reset to success after 3 seconds
+  setTimeout(() => {
+    syncStatus.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Data Synced';
+    syncStatus.className = 'text-sm text-green-300';
+  }, 3000);
+}
+
 // --- LocalStorage Data Helpers ---
 function getData(key, fallback) {
   return JSON.parse(localStorage.getItem(key)) || fallback;
-}
-function setData(key, data) {
-  localStorage.setItem(key, JSON.stringify(data));
 }
 
 // --- Blog Posts CRUD ---
@@ -84,12 +183,22 @@ function renderPosts() {
   const posts = getData('posts', []);
   if (!postsList) return;
   postsList.innerHTML = posts.map(post => `
-    <div class="bg-white rounded shadow p-4 flex flex-col">
-      <img src="${post.thumbnail}" alt="Thumbnail for ${post.title}" class="h-24 w-full object-cover rounded mb-2"/>
-      <h3 class="font-bold">${post.title}</h3>
-      <div class="flex space-x-2 mt-2">
-        <button class="edit-post bg-indigo-600 text-white px-2 py-1 rounded" data-id="${post.id}">Edit</button>
-        <button class="delete-post bg-red-600 text-white px-2 py-1 rounded" data-id="${post.id}">Delete</button>
+    <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-white/20 card-hover">
+      <img src="${post.thumbnail}" alt="Thumbnail for ${post.title}" class="h-32 w-full object-cover rounded-xl mb-4 shadow-md"/>
+      <h3 class="font-bold text-lg text-slate-800 mb-2">${post.title}</h3>
+      <p class="text-sm text-slate-500 mb-4 flex items-center">
+        <i class="fas fa-calendar-alt mr-2 text-blue-500"></i>
+        ${post.date}
+      </p>
+      <div class="flex space-x-3 mt-auto">
+        <button class="edit-post bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 flex items-center space-x-2" data-id="${post.id}">
+          <i class="fas fa-edit"></i>
+          <span>Edit</span>
+        </button>
+        <button class="delete-post bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 flex items-center space-x-2" data-id="${post.id}">
+          <i class="fas fa-trash"></i>
+          <span>Delete</span>
+        </button>
       </div>
     </div>
   `).join('');
@@ -107,27 +216,86 @@ function editPost(id) {
   if (!post) return;
   document.getElementById('post-id').value = post.id;
   document.getElementById('post-title').value = post.title;
-  document.getElementById('post-thumbnail').value = post.thumbnail;
+  
+  // Handle thumbnail preview for editing
+  const thumbnailPreview = document.getElementById('post-thumbnail-preview');
+  const previewImage = document.getElementById('preview-image');
+  if (post.thumbnail) {
+    previewImage.src = post.thumbnail;
+    thumbnailPreview.classList.remove('hidden');
+  }
+  
   document.getElementById('post-body').value = post.body.replace(/<[^>]+>/g, '');
   editingPostId = id;
 }
 function deletePost(id) {
   let posts = getData('posts', []);
   posts = posts.filter(p => p.id != id);
-  setData('posts', posts);
+  saveData('posts', posts);
   showToast('Post deleted');
   renderPosts();
-  syncToPublic('posts', posts);
 }
 if (postForm) {
   postForm.addEventListener('submit', e => {
     e.preventDefault();
     const id = document.getElementById('post-id').value;
     const title = document.getElementById('post-title').value.trim();
-    const thumbnail = document.getElementById('post-thumbnail').value.trim();
+    const thumbnailFile = document.getElementById('post-thumbnail').files[0];
     const body = document.getElementById('post-body').value.trim();
-    if (!title || !thumbnail || !body) {
-      showToast('All fields are required', 'error');
+    
+    if (!title || !body) {
+      showToast('Title and content are required', 'error');
+      return;
+    }
+    
+    // Handle thumbnail upload
+    let thumbnail = '';
+    if (thumbnailFile) {
+      try {
+        // Show loading state
+        const submitBtn = postForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Uploading...';
+        submitBtn.disabled = true;
+        
+        // Create FormData for upload
+        const formData = new FormData();
+        formData.append('image', thumbnailFile);
+        
+        // Upload to server
+        const response = await fetch('/api/upload-image', {
+          method: 'POST',
+          body: formData
+        });
+        
+        if (!response.ok) {
+          throw new Error('Upload failed');
+        }
+        
+        const result = await response.json();
+        thumbnail = result.url;
+        
+        showToast('Image uploaded successfully to Firebase Storage!', 'success');
+        
+      } catch (error) {
+        console.error('Upload error:', error);
+        showToast('Failed to upload image. Please try again.', 'error');
+        return;
+      } finally {
+        // Reset button state
+        const submitBtn = postForm.querySelector('button[type="submit"]');
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+      }
+    } else if (editingPostId) {
+      // Keep existing thumbnail when editing
+      const posts = getData('posts', []);
+      const existingPost = posts.find(p => p.id == editingPostId);
+      thumbnail = existingPost ? existingPost.thumbnail : '';
+    }
+    
+    if (!thumbnail) {
+      showToast('Please upload a thumbnail image', 'error');
       return;
     }
     let posts = getData('posts', []);
@@ -149,15 +317,61 @@ if (postForm) {
       posts.unshift(newPost);
       showToast('Post added');
     }
-    setData('posts', posts);
+    saveData('posts', posts);
+    updateSyncStatus('Posts updated successfully');
     renderPosts();
     postForm.reset();
+    // Clear thumbnail preview
+    document.getElementById('post-thumbnail-preview').classList.add('hidden');
     editingPostId = null;
-    syncToPublic('posts', posts);
   });
   document.getElementById('cancel-post').addEventListener('click', () => {
     postForm.reset();
     editingPostId = null;
+    // Hide thumbnail preview
+    document.getElementById('post-thumbnail-preview').classList.add('hidden');
+  });
+  
+  // Handle thumbnail file upload and preview
+  const thumbnailInput = document.getElementById('post-thumbnail');
+  const thumbnailPreview = document.getElementById('post-thumbnail-preview');
+  const previewImage = document.getElementById('preview-image');
+  const removeThumbnail = document.getElementById('remove-thumbnail');
+  
+  thumbnailInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+      // Validate file size (5MB limit)
+      if (file.size > 5 * 1024 * 1024) {
+        showToast('File size must be less than 5MB', 'error');
+        this.value = '';
+        return;
+      }
+      
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        showToast('Please select an image file', 'error');
+        this.value = '';
+        return;
+      }
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        previewImage.src = e.target.result;
+        thumbnailPreview.classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
+      
+      showToast('Image selected successfully!', 'success');
+    }
+  });
+  
+  // Handle remove thumbnail
+  removeThumbnail.addEventListener('click', function() {
+    thumbnailInput.value = '';
+    thumbnailPreview.classList.add('hidden');
+    showToast('Thumbnail removed', 'info');
   });
 }
 function slugify(str) {
@@ -173,13 +387,32 @@ function renderCourses() {
   const courses = getData('courses', []);
   if (!coursesList) return;
   coursesList.innerHTML = courses.map(course => `
-    <div class="bg-white rounded shadow p-4 flex flex-col">
-      <h3 class="font-bold">${course.name}</h3>
-      <span class="text-sm text-gray-500">${course.duration} | $${course.cost}</span>
-      <span class="text-xs text-gray-400">${course.category}</span>
-      <div class="flex space-x-2 mt-2">
-        <button class="edit-course bg-indigo-600 text-white px-2 py-1 rounded" data-id="${course.id}">Edit</button>
-        <button class="delete-course bg-red-600 text-white px-2 py-1 rounded" data-id="${course.id}">Delete</button>
+    <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-white/20 card-hover">
+      <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 shadow-lg">
+        <i class="fas fa-book-open text-xl text-white"></i>
+      </div>
+      <h3 class="font-bold text-lg text-slate-800 mb-3">${course.name}</h3>
+      <p class="text-sm text-slate-600 mb-3 line-clamp-2">${course.description}</p>
+      <div class="space-y-2 mb-4">
+        <div class="flex items-center text-sm text-slate-500">
+          <i class="fas fa-clock mr-2 text-purple-500"></i>
+          <span>${course.duration}</span>
+        </div>
+        <div class="flex items-center text-sm text-slate-500">
+          <i class="fas fa-dollar-sign mr-2 text-green-500"></i>
+          <span class="font-semibold">$${course.cost}</span>
+        </div>
+      </div>
+      <span class="inline-block bg-gradient-to-r from-purple-100 to-purple-200 text-purple-800 text-xs font-medium px-3 py-1 rounded-full mb-4">${course.category}</span>
+      <div class="flex space-x-3 mt-auto">
+        <button class="edit-course bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 flex items-center space-x-2" data-id="${course.id}">
+          <i class="fas fa-edit"></i>
+          <span>Edit</span>
+        </button>
+        <button class="delete-course bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 flex items-center space-x-2" data-id="${course.id}">
+          <i class="fas fa-trash"></i>
+          <span>Delete</span>
+        </button>
       </div>
     </div>
   `).join('');
@@ -206,10 +439,9 @@ function editCourse(id) {
 function deleteCourse(id) {
   let courses = getData('courses', []);
   courses = courses.filter(c => c.id != id);
-  setData('courses', courses);
+  saveData('courses', courses);
   showToast('Course deleted');
   renderCourses();
-  syncToPublic('courses', courses);
 }
 if (courseForm) {
   courseForm.addEventListener('submit', e => {
@@ -242,11 +474,11 @@ if (courseForm) {
       courses.unshift(newCourse);
       showToast('Course added');
     }
-    setData('courses', courses);
+    saveData('courses', courses);
+    updateSyncStatus('Courses updated successfully');
     renderCourses();
     courseForm.reset();
     editingCourseId = null;
-    syncToPublic('courses', courses);
   });
   document.getElementById('cancel-course').addEventListener('click', () => {
     courseForm.reset();
@@ -263,10 +495,17 @@ let galleryImages = getData('gallery', []);
 function renderGallery() {
   if (!galleryList) return;
   galleryList.innerHTML = galleryImages.map((img, idx) => `
-    <div class="bg-white rounded shadow p-2 flex flex-col items-center">
-      <img src="${img.src}" alt="${img.alt}" class="h-24 w-full object-cover rounded mb-2"/>
-      <span class="text-xs text-gray-500">${img.alt}</span>
-      <button class="delete-gallery bg-red-600 text-white px-2 py-1 rounded mt-2" data-idx="${idx}">Delete</button>
+    <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-4 border border-white/20 card-hover">
+      <div class="relative group">
+        <img src="${img.src}" alt="${img.alt}" class="h-32 w-full object-cover rounded-xl mb-3 shadow-md group-hover:scale-105 transition-transform duration-300"/>
+        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-xl flex items-center justify-center">
+          <button class="delete-gallery bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0" data-idx="${idx}">
+            <i class="fas fa-trash mr-2"></i>
+            Delete
+          </button>
+        </div>
+      </div>
+      <p class="text-sm text-slate-700 text-center font-medium">${img.alt}</p>
     </div>
   `).join('');
   galleryList.querySelectorAll('.delete-gallery').forEach(btn => {
@@ -275,10 +514,9 @@ function renderGallery() {
 }
 function deleteGalleryImage(idx) {
   galleryImages.splice(idx, 1);
-  setData('gallery', galleryImages);
+  saveData('gallery', galleryImages);
   showToast('Image deleted');
   renderGallery();
-  syncToPublic('gallery', galleryImages);
 }
 if (galleryForm) {
   galleryForm.addEventListener('submit', e => {
@@ -293,12 +531,12 @@ if (galleryForm) {
     const reader = new FileReader();
     reader.onload = function(ev) {
       galleryImages.unshift({ src: ev.target.result, alt });
-      setData('gallery', galleryImages);
+      saveData('gallery', galleryImages);
+      updateSyncStatus('Gallery updated successfully');
       showToast('Image added');
       renderGallery();
       galleryForm.reset();
       galleryPreview.innerHTML = '';
-      syncToPublic('gallery', galleryImages);
     };
     reader.readAsDataURL(file);
   });
@@ -316,30 +554,35 @@ if (galleryForm) {
   });
 }
 
-// --- Sync to Public JSON (simulate backend) ---
-function syncToPublic(type, data) {
-  // In a real backend, this would POST to an API or update a file.
-  // For demo, we update the public JSON in localStorage and optionally offer a download.
-  // Optionally, you could trigger a download of the updated JSON file here.
-}
-
 // --- On Dashboard Load, initialize data from public JSON if not present ---
 async function initData() {
   if (!getData('posts', null)) {
-    const res = await fetch('../../data/posts.json');
-    const posts = await res.json();
-    setData('posts', posts);
+    try {
+      const res = await fetch('../../data/posts.json');
+      const posts = await res.json();
+      saveData('posts', posts);
+    } catch (e) {
+      console.error('Failed to load posts:', e);
+    }
   }
   if (!getData('courses', null)) {
-    const res = await fetch('../../data/courses.json');
-    const courses = await res.json();
-    setData('courses', courses);
+    try {
+      const res = await fetch('../../data/courses.json');
+      const courses = await res.json();
+      saveData('courses', courses);
+    } catch (e) {
+      console.error('Failed to load courses:', e);
+    }
   }
   if (!getData('gallery', null)) {
-    const res = await fetch('../../data/gallery.json');
-    const gallery = await res.json();
-    setData('gallery', gallery);
-    galleryImages = gallery;
+    try {
+      const res = await fetch('../../data/gallery.json');
+      const gallery = await res.json();
+      saveData('gallery', gallery);
+      galleryImages = gallery;
+    } catch (e) {
+      console.error('Failed to load gallery:', e);
+    }
   }
   renderPosts();
   renderCourses();
