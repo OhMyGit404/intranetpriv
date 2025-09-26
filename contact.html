@@ -6,6 +6,7 @@
   <title>Contact Us | Intranet Training Institute</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body class="bg-[#FFF8E1] text-[#1A237E]">
   <!-- Navbar -->
@@ -62,7 +63,7 @@
           </div>
           <div class="mb-4">
             <p class="font-semibold text-[#1A237E]">Phone:</p>
-            <p><a href="tel:+1234567890" class="text-[#8e24aa] hover:underline">+1 (234) 567-890</a></p>
+            <p><a href="tel:+254726980927" class="text-[#8e24aa] hover:underline">+254 726 980927</a></p>
           </div>
           <div>
             <p class="font-semibold text-[#1A237E]">Email:</p>
@@ -86,8 +87,14 @@
               <textarea id="message" name="message" rows="4" required class="w-full px-4 py-2 rounded border-2 border-[#8e24aa]/40 focus:outline-none focus:ring-2 focus:ring-[#8e24aa]" aria-required="true"></textarea>
               <p class="text-red-600 text-sm mt-1 hidden" id="message-error">Please enter your message.</p>
             </div>
-            <button type="submit" class="bg-[#8e24aa] text-white px-6 py-2 rounded font-semibold hover:bg-[#6d1b7b] transition">Send Message</button>
-            <p id="contact-success" class="hidden mt-4 text-green-600">Thank you for contacting us! We'll get back to you soon.</p>
+            <button type="submit" id="submit-btn" class="bg-[#8e24aa] text-white px-6 py-2 rounded font-semibold hover:bg-[#6d1b7b] transition flex items-center justify-center">
+              <span id="btn-text">Send Message</span>
+              <span id="btn-loading" class="hidden">
+                <i class="fas fa-spinner fa-spin mr-2"></i>Sending...
+              </span>
+            </button>
+            <p id="contact-success" class="hidden mt-4 text-green-600 font-semibold">✅ Thank you for contacting us! We'll get back to you soon.</p>
+            <p id="contact-error" class="hidden mt-4 text-red-600 font-semibold">❌ Something went wrong. Please try again or call us directly.</p>
           </form>
         </div>
       </div>
@@ -111,6 +118,97 @@
     </div>
   </footer>
   <script type="module" src="assets/js/main.js" defer></script>
-   <script type="module" src="assets/js/main.js" defer></script>
+  
+  <!-- Contact Form JavaScript -->
+  <script>
+    // Initialize EmailJS with your public key
+    (function() {
+      emailjs.init("public_key_here"); // Will be replaced with your actual key
+    })();
+    
+    // Contact form handling
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form data
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      
+      // Basic validation
+      if (!name || !email || !message) {
+        alert('Please fill in all fields');
+        return;
+      }
+      
+      // Show loading state
+      const submitBtn = document.getElementById('submit-btn');
+      const btnText = document.getElementById('btn-text');
+      const btnLoading = document.getElementById('btn-loading');
+      
+      btnText.classList.add('hidden');
+      btnLoading.classList.remove('hidden');
+      submitBtn.disabled = true;
+      
+      // Hide any previous messages
+      document.getElementById('contact-success').classList.add('hidden');
+      document.getElementById('contact-error').classList.add('hidden');
+      
+      // Send email using EmailJS
+      const templateParams = {
+        from_name: name,
+        from_email: email,
+        message: message,
+        to_name: "Intranet Training Institute",
+        to_email: "info@intranet.edu", // Your business email
+        timestamp: new Date().toLocaleString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          timeZoneName: 'short'
+        })
+      };
+      
+      emailjs.send('service_id_here', 'template_id_here', templateParams)
+        .then(function(response) {
+          console.log('SUCCESS!', response.status, response.text);
+          
+          // Show success message
+          document.getElementById('contact-success').classList.remove('hidden');
+          
+          // Reset form
+          document.getElementById('contact-form').reset();
+          
+          // Also send to backend for logging
+          fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, email, message })
+          }).catch(err => console.log('Backend logging failed:', err));
+        })
+        .catch(function(error) {
+          console.log('FAILED...', error);
+          
+          // Show error message
+          document.getElementById('contact-error').classList.remove('hidden');
+        })
+        .finally(() => {
+          // Reset button state
+          btnText.classList.remove('hidden');
+          btnLoading.classList.add('hidden');
+          submitBtn.disabled = false;
+          
+          // Hide messages after 5 seconds
+          setTimeout(() => {
+            document.getElementById('contact-success').classList.add('hidden');
+            document.getElementById('contact-error').classList.add('hidden');
+          }, 5000);
+        });
+    });
+  </script>
 </body>
 </html>

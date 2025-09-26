@@ -1,0 +1,18 @@
+{
+  "projects": {
+    "default": "intranet-institute"
+  },
+  "targets": {
+    "intranet-institute": {
+      "hosting": {
+        "main": [
+          "intranet-institute"
+        ],
+        "custom": [
+          "intranetinstitute-co-ke"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

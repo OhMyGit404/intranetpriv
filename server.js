@@ -52,7 +52,7 @@ app.post('/api/upload-image', upload.single('image'), async (req, res) => {
     // Create unique filename
     const timestamp = Date.now();
     const filename = `blog-${timestamp}-${req.file.originalname}`;
-    const storageRef = ref(storage, `intranet-institute/${filename}`);
+    const storageRef = ref(storage, `blog-images/${filename}`);
 
     // Upload to Firebase Storage
     const snapshot = await uploadBytes(storageRef, req.file.buffer, {
@@ -88,7 +88,7 @@ app.delete('/api/delete-image/:filename', async (req, res) => {
   try {
     const { filename } = req.params;
     
-    const storageRef = ref(storage, `intranet-institute/${filename}`);
+    const storageRef = ref(storage, `blog-images/${filename}`);
     await deleteObject(storageRef);
     
     res.json({ success: true, message: 'Image deleted successfully' });
@@ -96,6 +96,54 @@ app.delete('/api/delete-image/:filename', async (req, res) => {
     console.error('Delete error:', error);
     res.status(500).json({ 
       error: 'Failed to delete image',
+      details: error.message 
+    });
+  }
+});
+
+// Contact form endpoint
+app.post('/api/contact', async (req, res) => {
+  try {
+    const { name, email, message } = req.body;
+    
+    // Basic validation
+    if (!name || !email || !message) {
+      return res.status(400).json({ 
+        error: 'Missing required fields',
+        details: 'Name, email, and message are required' 
+      });
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ 
+        error: 'Invalid email format',
+        details: 'Please provide a valid email address' 
+      });
+    }
+    
+    // Log the contact form submission (for now)
+    console.log('📧 New Contact Form Submission:');
+    console.log('Name:', name);
+    console.log('Email:', email);
+    console.log('Message:', message);
+    console.log('Timestamp:', new Date().toISOString());
+    console.log('---');
+    
+    // TODO: Add actual email sending functionality here
+    // For now, we'll just log it and return success
+    
+    res.json({ 
+      success: true, 
+      message: 'Contact form submitted successfully! We\'ll get back to you soon.',
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('Contact form error:', error);
+    res.status(500).json({ 
+      error: 'Failed to submit contact form',
       details: error.message 
     });
   }

@@ -1,0 +1,105 @@
+{
+  "hosting": [
+    {
+      "target": "main",
+      "public": ".",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**",
+        "**/package.json",
+        "**/package-lock.json",
+        "**/README.md",
+        "**/DEPLOYMENT.md",
+        "**/FIREBASE_SETUP.md",
+        "**/PRODUCTION_SUMMARY.md",
+        "**/PRODUCTION_CHECKLIST.md",
+        "**/FIREBASE_VS_CLOUDINARY.md",
+        "**/PROJECT_SUMMARY.md",
+        "**/start.sh",
+        "**/deploy.sh",
+        "**/quick-setup.sh",
+        "**/.env",
+        "**/env.example",
+        "**/server.js",
+        "**/storage.rules",
+        "**/.firebaserc",
+        "**/firebase-debug.log",
+        "**/*.sh",
+        "**/firebase-config.env",
+        "**/.git/**",
+        "**/.idea/**",
+        "**/.venv/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "headers": [
+        {
+          "source": "**/*.@(js|css)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "max-age=31536000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "target": "custom",
+      "public": ".",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**",
+        "**/package.json",
+        "**/package-lock.json",
+        "**/README.md",
+        "**/DEPLOYMENT.md",
+        "**/FIREBASE_SETUP.md",
+        "**/PRODUCTION_SUMMARY.md",
+        "**/PRODUCTION_CHECKLIST.md",
+        "**/FIREBASE_VS_CLOUDINARY.md",
+        "**/PROJECT_SUMMARY.md",
+        "**/start.sh",
+        "**/deploy.sh",
+        "**/quick-setup.sh",
+        "**/.env",
+        "**/env.example",
+        "**/server.js",
+        "**/storage.rules",
+        "**/.firebaserc",
+        "**/firebase-debug.log",
+        "**/*.sh",
+        "**/firebase-config.env",
+        "**/.git/**",
+        "**/.idea/**",
+        "**/.venv/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "headers": [
+        {
+          "source": "**/*.@(js|css)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "max-age=31536000"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "storage": {
+    "rules": "storage.rules"
+  }
+}
