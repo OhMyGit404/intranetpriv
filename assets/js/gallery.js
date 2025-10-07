@@ -11,9 +11,23 @@ const closeLightbox = document.getElementById('close-lightbox');
 async function renderGallery() {
   const images = await getSyncedData('gallery', 'data/gallery.json');
   if (!galleryGrid) return;
-  galleryGrid.innerHTML = images.map(img => `
-    <img src="${img.src}" alt="${img.alt}" class="w-full mb-4 rounded shadow cursor-pointer hover:opacity-80 transition" loading="lazy" tabindex="0" data-src="${img.src}" />
-  `).join('');
+  
+  // Create masonry-style layout with different heights
+  galleryGrid.innerHTML = images.map((img, index) => {
+    // Alternate between different heights for visual variety
+    const heightClass = index % 4 === 0 ? 'h-64' : 
+                       index % 4 === 1 ? 'h-80' : 
+                       index % 4 === 2 ? 'h-72' : 'h-60';
+    
+    return `
+      <div class="break-inside-avoid mb-6">
+        <img src="${img.src}" alt="${img.alt}" 
+             class="w-full ${heightClass} object-cover rounded-lg shadow-lg cursor-pointer hover:shadow-xl hover:scale-105 transition-all duration-300" 
+             loading="lazy" tabindex="0" data-src="${img.src}" />
+      </div>
+    `;
+  }).join('');
+  
   // Add click event for lightbox
   galleryGrid.querySelectorAll('img').forEach(imgEl => {
     imgEl.addEventListener('click', () => openLightbox(imgEl.dataset.src, imgEl.alt));
