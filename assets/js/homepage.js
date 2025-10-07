@@ -14,7 +14,7 @@ async function renderFeaturedCourses() {
   featuredCourses.innerHTML = featured.map(course => `
     <div class="group bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl p-8 lg:p-10 border border-white/20 card-hover">
       <div class="relative overflow-hidden rounded-2xl mb-6">
-        <img src="${course.thumbnail || 'assets/img/26cf6bd7-ce74-4a5c-92a2-ca6d233d3411.JPG'}" alt="${course.name}" class="w-full h-48 lg:h-56 object-cover group-hover:scale-110 transition-transform duration-500">
+        <img src="${course.thumbnail || 'assets/img/26cf6bd7-ce74-4a5c-92a2-ca6d233d3411.JPG'}?v=${Date.now()}" alt="${course.name}" class="w-full h-48 lg:h-56 object-cover group-hover:scale-110 transition-transform duration-500">
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         <div class="absolute top-4 right-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
           Featured

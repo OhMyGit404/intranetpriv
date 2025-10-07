@@ -39,7 +39,7 @@ async function renderCourses() {
 
     return `
       <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col border-2 border-[#8e24aa]/20">
-        ${course.thumbnail ? `<img src="${course.thumbnail}" alt="${course.name}" class="w-full h-48 object-cover rounded-lg mb-4 shadow-md">` : ''}
+        ${course.thumbnail ? `<img src="${course.thumbnail}?v=${Date.now()}" alt="${course.name}" class="w-full h-48 object-cover rounded-lg mb-4 shadow-md">` : ''}
         <h2 class="text-2xl font-bold mb-2 text-[#1A237E]">${course.name}</h2>
         <p class="mb-2 text-[#4a148c]">${course.description}</p>
         <div class="flex items-center justify-between mb-2">
