@@ -5,7 +5,13 @@
     "description": "Learn HTML, CSS, JavaScript, and backend fundamentals to build modern web apps.",
     "duration": "6 months",
     "cost": 1200,
-    "category": "Technology"
+    "category": "Technology",
+    "pricing": {
+      "artisan": 12000,
+      "certificate": 13000,
+      "diploma": 15000,
+      "higherDiploma": 18000
+    }
   },
   {
     "id": 2,
@@ -13,7 +19,13 @@
     "description": "Master SEO, SEM, social media, and analytics for digital business growth.",
     "duration": "3 months",
     "cost": 800,
-    "category": "Business"
+    "category": "Business",
+    "pricing": {
+      "artisan": 12000,
+      "certificate": 13000,
+      "diploma": 15000,
+      "higherDiploma": 18000
+    }
   },
   {
     "id": 3,
@@ -21,6 +33,152 @@
     "description": "Gain practical skills in project planning, execution, and leadership.",
     "duration": "4 months",
     "cost": 950,
-    "category": "Management"
+    "category": "Management",
+    "pricing": {
+      "artisan": 12000,
+      "certificate": 13000,
+      "diploma": 15000,
+      "higherDiploma": 18000
+    }
+  },
+  {
+    "id": 4,
+    "name": "Business Management",
+    "description": "Comprehensive business management skills covering leadership, strategy, operations, and financial management.",
+    "duration": "12 months",
+    "cost": 15000,
+    "category": "Business",
+    "pricing": {
+      "artisan": 12000,
+      "certificate": 13000,
+      "diploma": 15000,
+      "higherDiploma": 18000
+    }
+  },
+  {
+    "id": 5,
+    "name": "Information Science",
+    "description": "Study of information systems, data management, and information technology applications in various sectors.",
+    "duration": "12 months",
+    "cost": 15000,
+    "category": "Technology",
+    "pricing": {
+      "artisan": 12000,
+      "certificate": 13000,
+      "diploma": 15000,
+      "higherDiploma": 18000
+    }
+  },
+  {
+    "id": 6,
+    "name": "Records and Health Records Management",
+    "description": "Specialized training in medical records management, health information systems, and patient data security.",
+    "duration": "12 months",
+    "cost": 15000,
+    "category": "Healthcare",
+    "pricing": {
+      "artisan": 12000,
+      "certificate": 13000,
+      "diploma": 15000,
+      "higherDiploma": 18000
+    }
+  },
+  {
+    "id": 7,
+    "name": "Electrical Engineering",
+    "description": "Comprehensive electrical engineering program covering power systems, electronics, and electrical installations.",
+    "duration": "24 months",
+    "cost": 18000,
+    "category": "Engineering",
+    "pricing": {
+      "artisan": 12000,
+      "certificate": 13000,
+      "diploma": 15000,
+      "higherDiploma": 18000
+    }
+  },
+  {
+    "id": 8,
+    "name": "Salesmanship",
+    "description": "Professional sales training covering customer relations, negotiation skills, and sales strategies.",
+    "duration": "6 months",
+    "cost": 13000,
+    "category": "Business",
+    "pricing": {
+      "artisan": 12000,
+      "certificate": 13000,
+      "diploma": 15000,
+      "higherDiploma": 18000
+    }
+  },
+  {
+    "id": 9,
+    "name": "Food and Beverage",
+    "description": "Culinary arts and hospitality management focusing on food preparation, service, and restaurant operations.",
+    "duration": "12 months",
+    "cost": 15000,
+    "category": "Hospitality",
+    "pricing": {
+      "artisan": 12000,
+      "certificate": 13000,
+      "diploma": 15000,
+      "higherDiploma": 18000
+    }
+  },
+  {
+    "id": 10,
+    "name": "Automotive Engineering and Driving",
+    "description": "Comprehensive automotive technology training including vehicle maintenance, repair, and professional driving skills.",
+    "duration": "18 months",
+    "cost": 15000,
+    "category": "Engineering",
+    "pricing": {
+      "artisan": 12000,
+      "certificate": 13000,
+      "diploma": 15000,
+      "higherDiploma": 18000
+    }
+  },
+  {
+    "id": 11,
+    "name": "ICT and Computer Short Course",
+    "description": "Intensive computer skills training covering basic computing, office applications, and digital literacy.",
+    "duration": "3 months",
+    "cost": 13000,
+    "category": "Technology",
+    "pricing": {
+      "artisan": 12000,
+      "certificate": 13000,
+      "diploma": 15000,
+      "higherDiploma": 18000
+    }
+  },
+  {
+    "id": 12,
+    "name": "CPA, ATD, CS",
+    "description": "Professional accounting qualifications including Certified Public Accountant, Accounting Technician Diploma, and Certified Secretary.",
+    "duration": "24 months",
+    "cost": 18000,
+    "category": "Finance",
+    "pricing": {
+      "artisan": 12000,
+      "certificate": 13000,
+      "diploma": 15000,
+      "higherDiploma": 18000
+    }
+  },
+  {
+    "id": 13,
+    "name": "Front Office and Customer Care",
+    "description": "Professional front office operations and customer service excellence training for hospitality and service industries.",
+    "duration": "6 months",
+    "cost": 13000,
+    "category": "Hospitality",
+    "pricing": {
+      "artisan": 12000,
+      "certificate": 13000,
+      "diploma": 15000,
+      "higherDiploma": 18000
+    }
   }
 ]

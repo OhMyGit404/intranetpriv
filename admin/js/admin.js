@@ -236,7 +236,7 @@ function deletePost(id) {
   renderPosts();
 }
 if (postForm) {
-  postForm.addEventListener('submit', e => {
+  postForm.addEventListener('submit', async e => {
     e.preventDefault();
     const id = document.getElementById('post-id').value;
     const title = document.getElementById('post-title').value.trim();
@@ -386,36 +386,63 @@ let editingCourseId = null;
 function renderCourses() {
   const courses = getData('courses', []);
   if (!coursesList) return;
-  coursesList.innerHTML = courses.map(course => `
-    <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-white/20 card-hover">
-      <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 shadow-lg">
-        <i class="fas fa-book-open text-xl text-white"></i>
-      </div>
-      <h3 class="font-bold text-lg text-slate-800 mb-3">${course.name}</h3>
-      <p class="text-sm text-slate-600 mb-3 line-clamp-2">${course.description}</p>
-      <div class="space-y-2 mb-4">
-        <div class="flex items-center text-sm text-slate-500">
-          <i class="fas fa-clock mr-2 text-purple-500"></i>
-          <span>${course.duration}</span>
+  coursesList.innerHTML = courses.map(course => {
+    // Handle pricing display for both old and new formats
+    const pricingDisplay = course.pricing ? 
+      `<div class="space-y-1 mb-4">
+        <div class="text-xs font-semibold text-purple-600 mb-1">Pricing (Per Term):</div>
+        <div class="grid grid-cols-2 gap-1 text-xs">
+          <div class="flex justify-between">
+            <span>Artisan:</span>
+            <span class="font-semibold">KSh ${course.pricing.artisan?.toLocaleString() || 'N/A'}</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Certificate:</span>
+            <span class="font-semibold">KSh ${course.pricing.certificate?.toLocaleString() || 'N/A'}</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Diploma:</span>
+            <span class="font-semibold">KSh ${course.pricing.diploma?.toLocaleString() || 'N/A'}</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Higher Diploma:</span>
+            <span class="font-semibold">KSh ${course.pricing.higherDiploma?.toLocaleString() || 'N/A'}</span>
+          </div>
         </div>
-        <div class="flex items-center text-sm text-slate-500">
-          <i class="fas fa-dollar-sign mr-2 text-green-500"></i>
-          <span class="font-semibold">$${course.cost}</span>
+      </div>` : 
+      `<div class="flex items-center text-sm text-slate-500 mb-2">
+        <i class="fas fa-dollar-sign mr-2 text-green-500"></i>
+        <span class="font-semibold">$${course.cost}</span>
+      </div>`;
+
+    return `
+      <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-white/20 card-hover">
+        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 shadow-lg">
+          <i class="fas fa-book-open text-xl text-white"></i>
+        </div>
+        <h3 class="font-bold text-lg text-slate-800 mb-3">${course.name}</h3>
+        <p class="text-sm text-slate-600 mb-3 line-clamp-2">${course.description}</p>
+        <div class="space-y-2 mb-4">
+          <div class="flex items-center text-sm text-slate-500">
+            <i class="fas fa-clock mr-2 text-purple-500"></i>
+            <span>${course.duration}</span>
+          </div>
+          ${pricingDisplay}
+        </div>
+        <span class="inline-block bg-gradient-to-r from-purple-100 to-purple-200 text-purple-800 text-xs font-medium px-3 py-1 rounded-full mb-4">${course.category}</span>
+        <div class="flex space-x-3 mt-auto">
+          <button class="edit-course bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 flex items-center space-x-2" data-id="${course.id}">
+            <i class="fas fa-edit"></i>
+            <span>Edit</span>
+          </button>
+          <button class="delete-course bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 flex items-center space-x-2" data-id="${course.id}">
+            <i class="fas fa-trash"></i>
+            <span>Delete</span>
+          </button>
         </div>
       </div>
-      <span class="inline-block bg-gradient-to-r from-purple-100 to-purple-200 text-purple-800 text-xs font-medium px-3 py-1 rounded-full mb-4">${course.category}</span>
-      <div class="flex space-x-3 mt-auto">
-        <button class="edit-course bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 flex items-center space-x-2" data-id="${course.id}">
-          <i class="fas fa-edit"></i>
-          <span>Edit</span>
-        </button>
-        <button class="delete-course bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 flex items-center space-x-2" data-id="${course.id}">
-          <i class="fas fa-trash"></i>
-          <span>Delete</span>
-        </button>
-      </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
   // Edit/Delete handlers
   coursesList.querySelectorAll('.edit-course').forEach(btn => {
     btn.addEventListener('click', () => editCourse(btn.dataset.id));
@@ -432,8 +459,22 @@ function editCourse(id) {
   document.getElementById('course-name').value = course.name;
   document.getElementById('course-description').value = course.description;
   document.getElementById('course-duration').value = course.duration;
-  document.getElementById('course-cost').value = course.cost;
   document.getElementById('course-category').value = course.category;
+  
+  // Handle pricing fields
+  if (course.pricing) {
+    document.getElementById('course-artisan').value = course.pricing.artisan || '';
+    document.getElementById('course-certificate').value = course.pricing.certificate || '';
+    document.getElementById('course-diploma').value = course.pricing.diploma || '';
+    document.getElementById('course-higher-diploma').value = course.pricing.higherDiploma || '';
+  } else {
+    // For backward compatibility with old format
+    document.getElementById('course-artisan').value = '';
+    document.getElementById('course-certificate').value = '';
+    document.getElementById('course-diploma').value = '';
+    document.getElementById('course-higher-diploma').value = '';
+  }
+  
   editingCourseId = id;
 }
 function deleteCourse(id) {
@@ -450,16 +491,34 @@ if (courseForm) {
     const name = document.getElementById('course-name').value.trim();
     const description = document.getElementById('course-description').value.trim();
     const duration = document.getElementById('course-duration').value.trim();
-    const cost = document.getElementById('course-cost').value.trim();
     const category = document.getElementById('course-category').value.trim();
-    if (!name || !description || !duration || !cost || !category) {
-      showToast('All fields are required', 'error');
+    
+    // Get pricing values
+    const artisan = document.getElementById('course-artisan').value.trim();
+    const certificate = document.getElementById('course-certificate').value.trim();
+    const diploma = document.getElementById('course-diploma').value.trim();
+    const higherDiploma = document.getElementById('course-higher-diploma').value.trim();
+    
+    if (!name || !description || !duration || !category) {
+      showToast('Name, description, duration, and category are required', 'error');
       return;
     }
+    
+    // Create pricing object
+    const pricing = {
+      artisan: artisan ? parseInt(artisan) : null,
+      certificate: certificate ? parseInt(certificate) : null,
+      diploma: diploma ? parseInt(diploma) : null,
+      higherDiploma: higherDiploma ? parseInt(higherDiploma) : null
+    };
+    
+    // Use the highest pricing level as the main cost for backward compatibility
+    const cost = Math.max(...Object.values(pricing).filter(v => v !== null)) || 0;
+    
     let courses = getData('courses', []);
     if (id) {
       // Edit
-      courses = courses.map(c => c.id == id ? { ...c, name, description, duration, cost, category } : c);
+      courses = courses.map(c => c.id == id ? { ...c, name, description, duration, cost, category, pricing } : c);
       showToast('Course updated');
     } else {
       // Add
@@ -469,7 +528,8 @@ if (courseForm) {
         description,
         duration,
         cost,
-        category
+        category,
+        pricing
       };
       courses.unshift(newCourse);
       showToast('Course added');

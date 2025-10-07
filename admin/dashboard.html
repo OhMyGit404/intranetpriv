@@ -252,14 +252,29 @@
               <label for="course-description" class="block font-semibold text-lg text-slate-700">Description</label>
               <textarea id="course-description" rows="4" required class="w-full px-6 py-4 rounded-2xl border-2 border-slate-200 focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all duration-300 input-focus text-lg resize-none" placeholder="Describe the course..."></textarea>
             </div>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div class="space-y-3">
-                <label for="course-duration" class="block font-semibold text-lg text-slate-700">Duration</label>
-                <input type="text" id="course-duration" required class="w-full px-6 py-4 rounded-2xl border-2 border-slate-200 focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all duration-300 input-focus text-lg" placeholder="e.g., 6 months"/>
-              </div>
-              <div class="space-y-3">
-                <label for="course-cost" class="block font-semibold text-lg text-slate-700">Cost ($)</label>
-                <input type="number" id="course-cost" required class="w-full px-6 py-4 rounded-2xl border-2 border-slate-200 focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all duration-300 input-focus text-lg" placeholder="1200"/>
+            <div class="space-y-3">
+              <label for="course-duration" class="block font-semibold text-lg text-slate-700">Duration</label>
+              <input type="text" id="course-duration" required class="w-full px-6 py-4 rounded-2xl border-2 border-slate-200 focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all duration-300 input-focus text-lg" placeholder="e.g., 6 months"/>
+            </div>
+            <div class="space-y-3">
+              <label class="block font-semibold text-lg text-slate-700">Pricing (Per Term)</label>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="space-y-2">
+                  <label for="course-artisan" class="block text-sm font-medium text-slate-600">Artisan Level</label>
+                  <input type="number" id="course-artisan" class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all duration-300 input-focus" placeholder="12000"/>
+                </div>
+                <div class="space-y-2">
+                  <label for="course-certificate" class="block text-sm font-medium text-slate-600">Certificate Level</label>
+                  <input type="number" id="course-certificate" class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all duration-300 input-focus" placeholder="13000"/>
+                </div>
+                <div class="space-y-2">
+                  <label for="course-diploma" class="block text-sm font-medium text-slate-600">Diploma Level</label>
+                  <input type="number" id="course-diploma" class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all duration-300 input-focus" placeholder="15000"/>
+                </div>
+                <div class="space-y-2">
+                  <label for="course-higher-diploma" class="block text-sm font-medium text-slate-600">Higher Diploma Level</label>
+                  <input type="number" id="course-higher-diploma" class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all duration-300 input-focus" placeholder="18000"/>
+                </div>
               </div>
             </div>
             <div class="flex flex-wrap gap-4">
