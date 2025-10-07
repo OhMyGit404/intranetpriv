@@ -417,9 +417,7 @@ function renderCourses() {
 
     return `
       <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-white/20 card-hover">
-        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 shadow-lg">
-          <i class="fas fa-book-open text-xl text-white"></i>
-        </div>
+        ${course.thumbnail ? `<img src="${course.thumbnail}" alt="${course.name}" class="w-full h-32 object-cover rounded-xl mb-4 shadow-md">` : '<div class="w-full h-32 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 shadow-lg"><i class="fas fa-book-open text-2xl text-white"></i></div>'}
         <h3 class="font-bold text-lg text-slate-800 mb-3">${course.name}</h3>
         <p class="text-sm text-slate-600 mb-3 line-clamp-2">${course.description}</p>
         <div class="space-y-2 mb-4">

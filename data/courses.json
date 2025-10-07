@@ -6,6 +6,7 @@
     "duration": "6 months",
     "cost": 1200,
     "category": "Technology",
+    "thumbnail": "assets/img/pexels-nappy-935985.jpg",
     "pricing": {
       "artisan": 12000,
       "certificate": 13000,
@@ -20,6 +21,7 @@
     "duration": "3 months",
     "cost": 800,
     "category": "Business",
+    "thumbnail": "assets/img/pexels-mwabonje-2033447.jpg",
     "pricing": {
       "artisan": 12000,
       "certificate": 13000,
@@ -34,6 +36,7 @@
     "duration": "4 months",
     "cost": 950,
     "category": "Management",
+    "thumbnail": "assets/img/070_Robert-1024x683.jpeg",
     "pricing": {
       "artisan": 12000,
       "certificate": 13000,
@@ -48,6 +51,7 @@
     "duration": "12 months",
     "cost": 15000,
     "category": "Business",
+    "thumbnail": "assets/img/WhatsApp Image 2025-07-09 at 19.34.01.jpeg",
     "pricing": {
       "artisan": 12000,
       "certificate": 13000,
@@ -62,6 +66,7 @@
     "duration": "12 months",
     "cost": 15000,
     "category": "Technology",
+    "thumbnail": "assets/img/pexels-nappy-935985.jpg",
     "pricing": {
       "artisan": 12000,
       "certificate": 13000,
@@ -76,6 +81,7 @@
     "duration": "12 months",
     "cost": 15000,
     "category": "Healthcare",
+    "thumbnail": "assets/img/WhatsApp Image 2025-07-09 at 19.34.02.jpeg",
     "pricing": {
       "artisan": 12000,
       "certificate": 13000,
@@ -90,6 +96,7 @@
     "duration": "24 months",
     "cost": 18000,
     "category": "Engineering",
+    "thumbnail": "assets/img/WhatsApp Image 2025-07-09 at 19.34.03.jpeg",
     "pricing": {
       "artisan": 12000,
       "certificate": 13000,
@@ -104,6 +111,7 @@
     "duration": "6 months",
     "cost": 13000,
     "category": "Business",
+    "thumbnail": "assets/img/pexels-mwabonje-2033447.jpg",
     "pricing": {
       "artisan": 12000,
       "certificate": 13000,
@@ -118,6 +126,7 @@
     "duration": "12 months",
     "cost": 15000,
     "category": "Hospitality",
+    "thumbnail": "assets/img/WhatsApp Image 2025-07-09 at 19.34.01 (1).jpeg",
     "pricing": {
       "artisan": 12000,
       "certificate": 13000,
@@ -132,6 +141,7 @@
     "duration": "18 months",
     "cost": 15000,
     "category": "Engineering",
+    "thumbnail": "assets/img/WhatsApp Image 2025-07-09 at 19.34.02 (1).jpeg",
     "pricing": {
       "artisan": 12000,
       "certificate": 13000,
@@ -146,6 +156,7 @@
     "duration": "3 months",
     "cost": 13000,
     "category": "Technology",
+    "thumbnail": "assets/img/pexels-nappy-935985.jpg",
     "pricing": {
       "artisan": 12000,
       "certificate": 13000,
@@ -160,6 +171,7 @@
     "duration": "24 months",
     "cost": 18000,
     "category": "Finance",
+    "thumbnail": "assets/img/WhatsApp Image 2025-07-09 at 19.34.02 (2).jpeg",
     "pricing": {
       "artisan": 12000,
       "certificate": 13000,
@@ -174,6 +186,7 @@
     "duration": "6 months",
     "cost": 13000,
     "category": "Hospitality",
+    "thumbnail": "assets/img/WhatsApp Image 2025-07-09 at 19.34.03 (1).jpeg",
     "pricing": {
       "artisan": 12000,
       "certificate": 13000,
